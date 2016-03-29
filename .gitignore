@@ -1,0 +1,19 @@
+﻿# Eclipse
+.classpath
+.project
+.springBeans
+.settings/
+.externalToolBuilders
+target/
+bin/
+
+# IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# Gradle
+.gradle/
+build/
