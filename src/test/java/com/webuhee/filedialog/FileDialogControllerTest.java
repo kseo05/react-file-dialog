@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(MockitoJUnitRunner.class)
 public class FileDialogControllerTest {
-	// TODO : NewsApiControllerTest 리마인드.
+	// TODO : NewsApiControllerTest 
 	private MockMvc mockMvc;
 	
 	@InjectMocks FileDialogController con = new FileDialogController();

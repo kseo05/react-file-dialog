@@ -13,7 +13,7 @@ public class FileDialogLocalFsDao implements FileDialogDao {
 	public FileList getFileList(String path) {
 		try {
 			// 일단 이렇게.
-			FileList stub = new ObjectMapper().readValue("["
+			return new ObjectMapper().readValue("["
 					+ "{ 'name':'file1.txt', 'size':'1024', 'createDate':'?', 'modifiedDate':'?' }"
 					+ "]", FileList.class);
 		} catch (JsonParseException e) {

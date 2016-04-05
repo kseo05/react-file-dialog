@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FileDialogServiceTest {
-	// TODO : NewsServiceTest 리마인드.
+	// TODO : NewsServiceTest
 	@InjectMocks FileDialogServiceImpl svc = new FileDialogServiceImpl();
 	@InjectMocks FileDialogLocalFsDao dao = new FileDialogLocalFsDao();
 	
@@ -51,10 +51,10 @@ public class FileDialogServiceTest {
 	}
 	@Test(expected=Exception.class)
 	public void shouldThrowExceptionWhileGetFileListInDirectory5() {
-		svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/��/root");
+		svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/한글/root");
 	}
 	@Test(expected=Exception.class)
 	public void shouldThrowExceptionWhileGetFileListInDirectory6() {
-		svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/��/root/");
+		svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/한글/root/");
 	}
 }
