@@ -1,0 +1,1 @@
+java -jar react-file-dialog.war --filedialog.localfs.rootpath="D:/docs"

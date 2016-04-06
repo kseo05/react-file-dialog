@@ -9,19 +9,25 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webuhee.filedialog.FileDialogController;
 import com.webuhee.filedialog.FileDialogService;
+import com.webuhee.filedialog.dto.FileList;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FileDialogControllerTest {
-	// TODO : NewsApiControllerTest 
 	private MockMvc mockMvc;
 	
 	@InjectMocks FileDialogController con = new FileDialogController();
 	@Mock FileDialogService svc;
+	@Mock FileList fileList;
+	@Mock ObjectMapper objMapper;
 	
 	@Before
 	public void setup() {
@@ -30,16 +36,18 @@ public class FileDialogControllerTest {
 	
 	@Test
 	public void shouldGetFileListInDirectory() throws Exception {
-		this.mockMvc.perform(get("/file-dialog/tree")).andExpect(status().isOk());
-		this.mockMvc.perform(get("/file-dialog/tree/")).andExpect(status().isOk());
-		this.mockMvc.perform(get("/file-dialog/tree/docs")).andExpect(status().isOk());
-		this.mockMvc.perform(get("/file-dialog/tree/docs/")).andExpect(status().isOk());
+		when(svc.getFileList("")).thenReturn(fileList);
+		when(svc.getFileList("/")).thenReturn(fileList);
+		when(svc.getFileList("/docs")).thenReturn(fileList);
+		when(svc.getFileList("/docs/")).thenReturn(fileList);
+		this.mockMvc.perform(get("/file-dialog/storage")).andExpect(status().isOk()).andExpect(content().string(""));
+		this.mockMvc.perform(get("/file-dialog/storage/")).andExpect(status().isOk()).andExpect(content().string(""));
+		this.mockMvc.perform(get("/file-dialog/storage/docs")).andExpect(status().isOk()).andExpect(content().string(""));
+		this.mockMvc.perform(get("/file-dialog/storage/docs/")).andExpect(status().isOk()).andExpect(content().string(""));
 		
-		this.mockMvc.perform(get("/file-dialog/tree/../../../../../../root")).andExpect(status().is4xxClientError());
-		this.mockMvc.perform(get("/file-dialog/tree/../../../../../../root/")).andExpect(status().is4xxClientError());
-		this.mockMvc.perform(get("/file-dialog/tree///root")).andExpect(status().is4xxClientError());
-		this.mockMvc.perform(get("/file-dialog/tree///root/")).andExpect(status().is4xxClientError());
-		this.mockMvc.perform(get("/file-dialog/tree//!@$%^&*()_+``[]{}:;\"'<,>.?/��/root")).andExpect(status().is4xxClientError());
-		this.mockMvc.perform(get("/file-dialog/tree//!@$%^&*()_+``[]{}:;\"'<,>.?/��/root/")).andExpect(status().is4xxClientError());
+		this.mockMvc.perform(get("")).andExpect(status().is4xxClientError());
+		this.mockMvc.perform(get("/")).andExpect(status().is4xxClientError());
+		this.mockMvc.perform(get("/file-dialog")).andExpect(status().is4xxClientError());
+		this.mockMvc.perform(get("/file-dialog/")).andExpect(status().is4xxClientError());
 	}
 }

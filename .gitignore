@@ -17,3 +17,7 @@ out/
 # Gradle
 .gradle/
 build/
+
+# Client
+src/dev/build/
+src/dev/node_modules/

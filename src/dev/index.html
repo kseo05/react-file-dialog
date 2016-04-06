@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html land="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>React File Dialog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../main/resources/public/lib/css/bootstrap.css" />
+    <link rel="stylesheet" href="../main/resources/public/css/react-file-dialog.css" />
+  </head>
+  <body>
+    <div class="container">
+    		<div class="row clearfix">
+    			<div class="col-md-12 column">
+    				<div class="panel panel-primary">
+    					<div class="panel-heading"></div>
+    					<div class="panel-body">
+                <div class="d-file-dialog-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../main/resources/public/lib/js/jquery-2.2.2.js"></script>
+    <script src="../main/resources/public/lib/js/bootstrap.js"></script>
+    <script src="../main/resources/public/lib/js/react.js"></script>
+    <script src="../main/resources/public/lib/js/react-dom.js"></script>
+    <script src="../main/resources/public/js/react-file-dialog.js"></script>
+    <script>
+      (function(global, $, React, ReactDOM, FileDialog) {
+        "use strict";
+
+        class App {
+          constructor (el) {
+            this.el = el;
+          }
+
+          init () {
+            ReactDOM.render(
+              React.createElement(FileDialog, {
+                "rootPath" : "/",
+                "storageUrl" : "http://localhost:8081/file-dialog/storage",
+                "getDirInfo" : () => this.getDirInfo(),
+                "executeFile" : (path, fileName) => this.executeFile(path, fileName)
+              }, []),
+              this.el
+            );
+          }
+
+          getDirInfo () {
+            return {
+              "list" :[
+                {
+                  "name" : Math.round(Math.random() * 10000) + ".doc",
+                  "type" : "file",
+                  "createdTime" : Math.round(Math.random() * 10000),
+                  "modifiedTime" : Math.round(Math.random() * 10000),
+                  "fileSize" : Math.round(Math.random() * 10000)
+                },
+                {
+                  "name" : Math.round(Math.random() * 10000) + ".xls",
+                  "type" : "file",
+                  "createdTime" : Math.round(Math.random() * 10000),
+                  "modifiedTime" : Math.round(Math.random() * 10000),
+                  "fileSize" : Math.round(Math.random() * 10000)
+                },
+                {
+                  "name" : Math.round(Math.random() * 10000) + ".ppt",
+                  "type" : "file",
+                  "createdTime" : Math.round(Math.random() * 10000),
+                  "modifiedTime" : Math.round(Math.random() * 10000),
+                  "fileSize" : Math.round(Math.random() * 10000)
+                },
+                {
+                  "name" : Math.round(Math.random() * 10000) + ".hwp",
+                  "type" : "file",
+                  "createdTime" : Math.round(Math.random() * 10000),
+                  "modifiedTime" : Math.round(Math.random() * 10000),
+                  "fileSize" : Math.round(Math.random() * 10000)
+                },
+                {
+                  "name" : Math.round(Math.random() * 10000) + ".docx",
+                  "type" : "file",
+                  "createdTime" : Math.round(Math.random() * 10000),
+                  "modifiedTime" : Math.round(Math.random() * 10000),
+                  "fileSize" : Math.round(Math.random() * 10000)
+                },
+                {
+                  "name" : "backup-" + Math.round(Math.random() * 10000),
+                  "type" : "dir",
+                  "createdTime" : Math.round(Math.random() * 10000),
+                  "modifiedTime" : Math.round(Math.random() * 10000),
+                  "fileSize" : Math.round(Math.random() * 100000000)
+                }
+              ]
+            };
+          }
+
+          executeFile (path, fileName) {
+            alert(`Executed ${path}.`);
+          }
+        }
+
+        global.App = App;
+
+        var app = new App(document.querySelector(".d-file-dialog-container"));
+        app.init();
+
+      })(window,
+        window["$"] || window["JQuery"],
+        window["React"],
+        window["ReactDOM"],
+        window["FileDialog"]
+      );
+    </script>
+  </body>
+</html>

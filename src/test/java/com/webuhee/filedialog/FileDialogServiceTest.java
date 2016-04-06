@@ -16,10 +16,9 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FileDialogServiceTest {
-	// TODO : NewsServiceTest
 	@InjectMocks FileDialogServiceImpl svc = new FileDialogServiceImpl();
-	@InjectMocks FileDialogLocalFsDao dao = new FileDialogLocalFsDao();
 	
+	@Mock FileDialogDao dao;
 	@Mock FileList fileList;
 	
 	@Test
@@ -31,30 +30,12 @@ public class FileDialogServiceTest {
 		when(dao.getFileList("/docs/")).thenReturn(fileList);
 		assertThat(svc.getFileList("/docs/"),  is(fileList));
 		assertThat(svc.getFileList("/docs"),  is(fileList));
-	}
-
-	@Test(expected=Exception.class)
-	public void shouldThrowExceptionWhileGetFileListInDirectory1() {
-		svc.getFileList("/../../../../../../root");
-	}
-	@Test(expected=Exception.class)
-	public void shouldThrowExceptionWhileGetFileListInDirectory2() {
-		svc.getFileList("/../../../../../../root/");
-	}
-	@Test(expected=Exception.class)
-	public void shouldThrowExceptionWhileGetFileListInDirectory3() {
-		svc.getFileList("///root");
-	}
-	@Test(expected=Exception.class)
-	public void shouldThrowExceptionWhileGetFileListInDirectory4() {
-		svc.getFileList("///root/");
-	}
-	@Test(expected=Exception.class)
-	public void shouldThrowExceptionWhileGetFileListInDirectory5() {
-		svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/한글/root");
-	}
-	@Test(expected=Exception.class)
-	public void shouldThrowExceptionWhileGetFileListInDirectory6() {
-		svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/한글/root/");
+		
+		assertThat(svc.getFileList("/../../../../../../root"),  nullValue());
+		assertThat(svc.getFileList("/../../../../../../root/"),  nullValue());
+		assertThat(svc.getFileList("///root"),  nullValue());
+		assertThat(svc.getFileList("///root/"),  nullValue());
+		assertThat(svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/한글/root"),  nullValue());
+		assertThat(svc.getFileList("//!@$%^&*()_+``[]{}:;\"'<,>.?/한글/root/"),  nullValue());
 	}
 }
