@@ -51,7 +51,7 @@ public class FileDialogLocalFsDao implements FileDialogDao {
 					
 					String name = fileItem.getName();
 					String type = fileAttr.isDirectory() ? "dir" : "file";
-					long fileSize = fileAttr.size();
+					long fileSize = fileItem.isDirectory() ? 0L : fileAttr.size();
 					long createdTime = fileAttr.creationTime().toMillis();
 					long modifiedTime = fileAttr.lastModifiedTime().toMillis();
 					
