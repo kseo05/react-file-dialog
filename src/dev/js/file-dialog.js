@@ -94,7 +94,7 @@ require("../css/toastr.css");
 
     //######################### Formatters Begin ##########################
     formatFilename (cell) {
-      return "<b>" + cell + "</b>";
+      return "<a href='#'>" + cell + "</a>";
     }
 
     formatDatetime (cell) {
