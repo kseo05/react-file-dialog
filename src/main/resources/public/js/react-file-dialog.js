@@ -524,10 +524,17 @@
 	              React.createElement(
 	                BootstrapTable,
 	                { data: this.state.tableData, striped: true, hover: true,
-	                  pagination: true, columnFilter: true, search: true,
-	                  options: { "onRowClick": function onRowClick(row) {
+	                  pagination: true, columnFilter: true, search: true, ref: "table",
+	                  options: {
+	                    "sortName": "type",
+	                    "sortOrder": "asc",
+	                    "onRowClick": function onRowClick(row) {
 	                      return _this2.onRowClick(row);
-	                    } } },
+	                    },
+	                    "sizePerPageList": [10, 20, 30, 40, 50],
+	                    "sizePerPage": 20,
+	                    "paginationSize": 5
+	                  } },
 	                React.createElement(TableHeaderColumn, { dataField: "type", dataSort: true, dataAlign: "center",
 	                  width: "40px" }),
 	                React.createElement(
@@ -691,7 +698,11 @@
 	      key: "refinePath",
 	      value: function refinePath(path) {
 	        var result = path.replace(/\\\\/g, "/");
-	        if (!result.endsWith("/")) {
+	        // IE 에서 endsWith 오류남. babel-preset-es2015 에서 변환 안해주는 듯.
+	        // if (! result.endsWith("/")) {
+	        //   result += "/";
+	        // }
+	        if (result.charAt(result.length - 1) !== "/".charAt(0)) {
 	          result += "/";
 	        }
 

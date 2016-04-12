@@ -53,8 +53,15 @@ require("../css/toastr.css");
         <div className="row clearfix">
           <div className="column col-md-12">
             <BootstrapTable data={this.state.tableData} striped={true} hover={true}
-              pagination={true} columnFilter={true} search={true}
-              options={{ "onRowClick" : (row) => this.onRowClick(row) }}>
+              pagination={true} columnFilter={true} search={true} ref="table"
+              options={{
+                "sortName" : "type",
+                "sortOrder" : "asc",
+                "onRowClick" : (row) => this.onRowClick(row),
+                "sizePerPageList" : [10, 20, 30, 40, 50],
+                "sizePerPage" : 20,
+                "paginationSize" : 5
+              }}>
               <TableHeaderColumn dataField="type" dataSort={true} dataAlign="center"
                 width="40px" >
               </TableHeaderColumn>
@@ -169,7 +176,11 @@ require("../css/toastr.css");
 
     static refinePath (path) {
       var result = path.replace(/\\\\/g, "/");
-      if (! result.endsWith("/")) {
+      // IE 에서 endsWith 오류남. babel-preset-es2015 에서 변환 안해주는 듯.
+      // if (! result.endsWith("/")) {
+      //   result += "/";
+      // }
+      if (result.charAt(result.length - 1) !== "/".charAt(0)) {
         result += "/";
       }
 
