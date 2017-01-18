@@ -37,10 +37,15 @@
           }
 
           init () {
+            var storageUrl = window.location.href;
+            if (storageUrl.charAt(storageUrl.length - 1) === "#".charAt(0)) {
+              storageUrl = storageUrl.substring(0, storageUrl.length - 1);
+            }
+
             ReactDOM.render(
               React.createElement(FileDialog, {
                 "rootPath" : "/",
-                "storageUrl" : "http://localhost:8081/file-dialog/storage",
+                "storageUrl" : storageUrl + "file-dialog/storage",
                 "getDirInfo" : () => this.getDirInfo(),
                 "executeFile" : (path, fileName) => this.executeFile(path, fileName)
               }, []),

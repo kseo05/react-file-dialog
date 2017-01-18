@@ -17,3 +17,5 @@
  * css-loader
  * extract-text-webpack-plugin
  * es6-promise (https://github.com/webpack/css-loader/issues/145 해결될 때까지)
+ * eslint
+ * eslint-cli
